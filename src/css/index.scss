@@ -1,0 +1,30 @@
+@import './modules/var.scss';
+@import './modules/common.scss';
+@import './modules/banner.scss';
+@import './modules/head.scss';
+@import './modules/footer.scss';
+
+.goods{
+    margin-bottom: 30px;
+    .goods_title{
+        font-size: 30px;
+    }
+    .goods_list{
+        li{
+            width: 220px;
+            height: 290px;
+            margin: 5px;
+            float: left;
+            background: #f9f9f9;
+            text-align: center;
+            border-radius: 10px;
+            img{@include wh100;padding: 20px; box-sizing: border-box;}
+            h3,p{margin-bottom: 10px;}
+            transition: all linear 0s;
+            &:hover{
+                box-shadow:0 12px 36px rgba(0,0,0,0.1) ;
+            }
+
+        }
+    }
+}

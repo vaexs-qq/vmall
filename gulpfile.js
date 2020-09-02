@@ -2,6 +2,7 @@ var {src,dest,series,parallel,watch}=require('gulp');
 var clean =require('gulp-clean');
 var fileInclude =require('gulp-file-include');
 var webserver =require('gulp-webserver');
+var sass =require('gulp-sass');
 
 
 
@@ -21,20 +22,47 @@ function fileIncludeTask(){
 }
 
 function webserverTask(){
-    return src('./dist/view')
+    return src('./dist')
     .pipe(webserver({
         host:'localhost',
         port:4000,
-        open:'./index.html',
+        open:'./view/index.html',
         livereload:true
     }));
 }
 function watchTask(){
     watch('./src/view/**',fileIncludeTask);
+    watch('./src/css/**',sassTask);
+    watch('./src/static/**',staticTask);
+    watch('./src/lib/**',libTask);
+    watch('./src/api/**',apiTask);
+    watch('./src/js/**',jsTask)
 
 }
+function sassTask(){
+    return src('./src/css/*.scss')
+    .pipe(sass())
+    .pipe(dest('./dist/css'));
+}
+function staticTask(){
+    return src('./src/static/**')
+    .pipe(dest('./dist/static'))
+}
+function libTask(){
+    return src('./src/lib/**')
+    .pipe(dest('./dist/lib'))
+}
+function apiTask(){
+    return src('./src/api/**')
+    .pipe(dest('./dist/api'))
+}
+function jsTask(){
+    return src('./src/js/**')
+    .pipe(dest('dist/js'));
+}
 module.exports={
-    dev:series(cleanTask,fileIncludeTask,parallel(webserverTask,watchTask)),
+    dev:series(cleanTask,parallel(fileIncludeTask,sassTask,staticTask,libTask,apiTask,jsTask
+        ),parallel(webserverTask,watchTask)),
 
     build:series(cleanTask),
 };

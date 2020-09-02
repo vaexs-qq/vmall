@@ -1,0 +1,45 @@
+#banner{
+    $imgWidth:1920;
+    height: 550px;
+
+    
+    ul{
+        position: relative;
+        left: 50%;
+        margin-left: -$imgWidth/2 +px;
+        li{
+            
+            @include posLT;
+            opacity: 0;
+            &.show{opacity:1;}
+        }
+    }
+    ol{
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        z-index: 10;
+       
+        li{
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 1px solid black;
+            background: white;
+            float: left;
+            margin-left: 10px;
+            &.active{background: blue;}
+        }
+    }
+    .banner-mask{
+        position: absolute;
+        width: 1920px;
+        bottom: 0;
+        height: 300px;
+        left: 50%;
+        margin-left: -$imgWidth/2 +px;
+        background: url(/static/img/bg-slide.png) center bottom no-repeat;
+    
+    
+    }
+}
